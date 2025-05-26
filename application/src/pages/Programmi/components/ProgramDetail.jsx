@@ -136,6 +136,7 @@ const ProgramDetail = () => {
             <div className="flex items-center space-x-2">
               <h3 className="text-lg font-semibold">
                 Giorno {workout.day_number}: {workout.name}
+                
               </h3>
               <button
                 onClick={() => {

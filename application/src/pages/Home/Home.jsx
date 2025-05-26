@@ -17,12 +17,7 @@ const Home = () => {
             Accedi al catalogo completo degli esercizi disponibili
           </p>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="text-xl font-semibold mb-4">Alimentazione</h2>
-          <p className="text-gray-600">
-            Gestisci i piani alimentari e monitora i progressi
-          </p>
-        </div>
+        
       </div>
     </div>
   );

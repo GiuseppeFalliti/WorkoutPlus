@@ -82,18 +82,47 @@ db.serialize(() => {
 
 // Inserimento esercizi
 const sampleExercises = [
-    { name: 'Calf Machine', type: 'Legs' },
-    { name: 'Master Gluteus', type: 'Legs' },
-    { name: 'Lat Machine', type: 'Back' },
-    { name: 'Lat Machine presa supina', type: 'Back' },
+    { name: 'Spinte Manubri Panca Inclinata', type: 'Chest' },
+    { name: 'Croci Cavi', type: 'Chest' },
+    { name: 'Tirate Al Petto', type: 'Deltoidi' },
+    { name: 'Alzate laterali', type: 'Deltoidi' },
+    { name: 'Hummer Esorcista', type: 'Bicipiti' },
+    { name: 'Push Down', type: 'Tricipiti' },
+    { name: 'Stacco Rumeno', type: 'Legs' },
     { name: 'Lat Machine triangolo', type: 'Back' },
-    { name: 'Pulley con triangolo', type: 'Back' }
+    { name: 'Puley presa larga', type: 'Back' },
+    { name: 'Pullover', type: 'Back' },
+    { name: 'Overhead cavi', type: 'Triceps' },
+    { name: 'Curl Panca', type: 'Bicipiti' },
+    { name: 'Curl Bilancere', type: 'Bicipiti' },
+    { name: 'Panca Inclinata 30', type: 'Chest' },
+    { name: 'Alzate Lat Panca 45',type: 'Deltoidi' }
 ];
 
-sampleExercises.forEach(exercise => {
-    db.run('INSERT OR IGNORE INTO exercises (name, type) VALUES (?, ?)',
-        [exercise.name, exercise.type]);
-});
+// Funzione per inserire gli esercizi
+const insertExercises = () => {
+    // Prima elimina tutti gli esercizi esistenti
+    db.run('DELETE FROM exercises', [], (err) => {
+        if (err) {
+            console.error('Errore nella pulizia degli esercizi:', err);
+            return;
+        }
+        
+        // Poi inserisci i nuovi esercizi
+        sampleExercises.forEach(exercise => {
+            db.run('INSERT INTO exercises (name, type) VALUES (?, ?)',
+                [exercise.name, exercise.type], (err) => {
+                    if (err) {
+                        console.error('Errore nell\'inserimento dell\'esercizio:', err);
+                    }
+                });
+        });
+        console.log('Esercizi inseriti con successo');
+    });
+};
+
+// Inserisci gli esercizi dopo la creazione del database
+insertExercises();
 
 //Endpoint per ottenere tutti i programmi
 app.get('/api/programmi', (req, res) => {
