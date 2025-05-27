@@ -16,11 +16,11 @@ const ProgramList = ({ programs, onProgramDeleted }) => {
       </div>
 
       {/* Tabella Header */}
-      <div className="grid grid-cols-7 gap-4 p-4 border-b bg-gray-50 font-medium text-sm">
-        <div className="col-span-2">Programma</div>
-        <div>Tipo</div>
-        <div>Livello</div>
-        <div>Tipologia</div>   
+      <div className="hidden md:grid grid-cols-7 gap-4 p-4 border-b bg-gray-50 font-medium text-sm">
+        <div className="col-span-1 md:col-span-2 font-medium">Programma</div>
+        <div className="text-right md:text-left md:col-span-1">Livello</div>
+        <div className="hidden md:block">Tipo</div>
+        <div className="hidden md:block md:col-span-2">Tipologia</div>   
         <div>Azioni</div>
       </div>
 
@@ -29,7 +29,7 @@ const ProgramList = ({ programs, onProgramDeleted }) => {
         {programs.map((program) => (
           <div
             key={program.id}
-            className="grid grid-cols-7 gap-4 p-4 hover:bg-gray-50"
+            className="grid grid-cols-2 md:grid-cols-7 gap-4 p-4 hover:bg-gray-50"
           >
             {/* Nome Programma */}
             <div 

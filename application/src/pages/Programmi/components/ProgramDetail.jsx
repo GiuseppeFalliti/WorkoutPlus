@@ -159,9 +159,9 @@ const ProgramDetail = () => {
               <FaPlus className="mr-2" /> Esercizio
             </button>
           </div>
-          <div className="space-y-4 mt-4">
+          <div className="container mx-auto px-4 py-4 md:py-8">
             {workoutExercises[workout.id]?.map((exercise) => (
-              <div key={exercise.id} className="bg-white p-4 rounded-lg shadow">
+              <div key={exercise.id} className="bg-white rounded-lg shadow-lg p-4 md:p-6">
                 <div className="flex justify-between items-start">
                   <div className="flex items-center space-x-3">
                     <FaDumbbell className="text-red-600" />

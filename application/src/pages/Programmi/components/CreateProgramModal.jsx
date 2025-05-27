@@ -54,8 +54,8 @@ const CreateProgramModal = ({ isOpen, onClose, onSubmit }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg w-full max-w-2xl">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 overflow-y-auto">
+      <div className="bg-white rounded-lg p-4 md:p-6 w-full max-w-[500px] mx-4 md:mx-auto">
         <div className="flex justify-between items-center p-6 border-b">
           <h2 className="text-xl font-semibold">Crea Programma</h2>
           <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
