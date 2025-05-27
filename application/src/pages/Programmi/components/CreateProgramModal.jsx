@@ -113,7 +113,7 @@ const CreateProgramModal = ({ isOpen, onClose, onSubmit }) => {
               <option value="">Seleziona tipologia allenamento</option>
               <option value="Body Building">Body Building</option>
               <option value="Calisthenics">Calisthenics</option>
-              <option value="Funzionale">Funzionale</option>
+              <option value="Pugilato">Pugilato</option>
             </select>
           </div>
 
