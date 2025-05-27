@@ -116,7 +116,7 @@ const ProgramDetail = () => {
   if (!program) return <div>Caricamento...</div>;
 
   return (
-    <div className="md:p-4 md:pl-72 p-1 pl-16">
+    <div className="md:p-4 md:pl-72 p-1 pl-5 sm:pl-16">
       <div>
         <h2 className="text-xl md:text-2xl font-semibold mb-2 md:mb-6">{program.nome}</h2>
         <div className="text-xs md:text-sm text-gray-600 mb-2">
