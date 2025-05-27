@@ -1,6 +1,4 @@
 {
   "version": 2,
-  "buildCommand": "cd application && npm install && npm run build",
-  "outputDirectory": "application/dist",
-  "framework": "vite"
+  "outputDirectory": "application/dist"
 }
