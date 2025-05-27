@@ -116,7 +116,7 @@ const ProgramDetail = () => {
   if (!program) return <div>Caricamento...</div>;
 
   return (
-    <div className="p-4 lg:pl-72 md:pl-72 sm:pl-24 pl-16">
+    <div className="p-2 lg:p-4 lg:pl-72 md:pl-72 sm:pl-24 pl-16">
       <div>
         <h2 className="text-2xl font-semibold mb-6">{program.nome}</h2>
         <div className="text-sm text-gray-600">
@@ -125,15 +125,15 @@ const ProgramDetail = () => {
       </div>
 
       {/* Workouts */}
-      <div className="space-y-6 md:space-y-6">
+      <div className="space-y-4 md:space-y-6">
         {/* Mobile-only workout grid (shows on small screens only) */}
-        <div className="md:hidden grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="md:hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
           {program?.workouts.map((workout) => (
             <div key={`mobile-${workout.id}`} className="bg-gray-50 rounded-lg shadow-md overflow-hidden">
-              <div className="bg-red-600 text-white p-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-                <div className="flex items-center space-x-2 w-full sm:w-auto">
-                  <h3 className="text-lg font-medium">{workout.name}</h3>
-                  <div className="flex space-x-2 ml-auto sm:ml-2">
+              <div className="bg-red-600 text-white p-2 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                <div className="flex items-center flex-wrap w-full sm:w-auto">
+                  <h3 className="text-base font-medium mr-1">{workout.name}</h3>
+                  <div className="flex space-x-1 ml-auto sm:ml-2">
                     <button
                       onClick={() => {
                         const newName = prompt('Modifica nome del giorno', workout.name);
@@ -163,25 +163,25 @@ const ProgramDetail = () => {
                   <FaPlus className="mr-1" /> Esercizio
                 </button>
               </div>
-              <div className="px-3 py-3">
+              <div className="px-2 py-2">
                 {workoutExercises[workout.id]?.length === 0 ? (
                   <p className="text-gray-500 text-sm text-center py-2">Nessun esercizio</p>
                 ) : (
-                  <div className="space-y-2">
+                  <div className="space-y-2 overflow-hidden">
                     {workoutExercises[workout.id]?.map((exercise) => (
-                      <div key={exercise.id} className="bg-white rounded-lg shadow p-3">
+                      <div key={exercise.id} className="bg-white rounded-lg shadow p-2">
                         <div className="flex justify-between items-start">
                           <div className="flex items-start space-x-2">
                             <FaDumbbell className="text-red-600 mt-1 flex-shrink-0" />
-                            <div className="flex-1 min-w-0">
-                              <h4 className="font-medium text-sm truncate">{exercise.exercise_name}</h4>
-                              <div className="text-xs text-gray-600">
+                            <div className="flex-1 min-w-0 max-w-full overflow-hidden">
+                              <h4 className="font-medium text-xs sm:text-sm truncate">{exercise.exercise_name}</h4>
+                              <div className="text-xs text-gray-600 whitespace-normal break-words">
                                 Serie: {exercise.sets} | Rep: {exercise.reps}
                                 {exercise.weight && ` | ${exercise.weight}kg`}
                                 {exercise.rest_time && ` | ${exercise.rest_time}min`}
                               </div>
                               {exercise.notes && (
-                                <div className="text-xs text-gray-500 mt-1 truncate">
+                                <div className="text-xs text-gray-500 mt-1 truncate w-full overflow-hidden">
                                   {exercise.notes}
                                 </div>
                               )}
