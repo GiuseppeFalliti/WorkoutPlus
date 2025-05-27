@@ -102,6 +102,17 @@ const ProgramDetail = () => {
     }
   };
 
+  const handleDeleteWorkout = async (workoutId) => {
+    if (!window.confirm('Sei sicuro di voler eliminare questo giorno di allenamento? Tutti gli esercizi associati verranno eliminati.')) return;
+
+    try {
+      await axios.delete(`${API_BASE_URL}/api/workouts/${workoutId}`);
+      loadProgram(); // Ricarica il programma per riflettere l'eliminazione
+    } catch (error) {
+      console.error('Errore nella cancellazione del giorno:', error);
+    }
+  };
+
   if (!program) return <div>Caricamento...</div>;
 
   return (
@@ -137,17 +148,24 @@ const ProgramDetail = () => {
             <div className="flex items-center space-x-2">
               <h3 className="text-lg font-semibold">
                 Giorno {workout.day_number}: {workout.name}
-                
               </h3>
-              <button
-                onClick={() => {
-                  const newName = prompt('Inserisci il nuovo nome del workout:', workout.name);
-                  if (newName) handleEditWorkout(workout.id, newName);
-                }}
-                className="text-gray-600 hover:text-gray-800"
-              >
-                <FaEdit className="w-4 h-4" />
-              </button>
+              <div className="flex space-x-2">
+                <button
+                  onClick={() => {
+                    const newName = prompt('Inserisci il nuovo nome del workout:', workout.name);
+                    if (newName) handleEditWorkout(workout.id, newName);
+                  }}
+                  className="text-gray-600 hover:text-gray-800"
+                >
+                  <FaEdit className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => handleDeleteWorkout(workout.id)}
+                  className="text-red-600 hover:text-red-700"
+                >
+                  <FaTrash className="w-4 h-4" />
+                </button>
+              </div>
             </div>
             <button
               onClick={() => {
