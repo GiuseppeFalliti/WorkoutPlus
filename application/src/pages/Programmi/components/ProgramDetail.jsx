@@ -116,24 +116,25 @@ const ProgramDetail = () => {
   if (!program) return <div>Caricamento...</div>;
 
   return (
-    <div className="p-2 lg:p-4 lg:pl-72 md:pl-72 sm:pl-24 pl-16">
+    <div className="md:p-4 md:pl-72 p-1 pl-16">
       <div>
-        <h2 className="text-2xl font-semibold mb-6">{program.nome}</h2>
-        <div className="text-sm text-gray-600">
+        <h2 className="text-xl md:text-2xl font-semibold mb-2 md:mb-6">{program.nome}</h2>
+        <div className="text-xs md:text-sm text-gray-600 mb-2">
           Livello: {program.level} | Tipo: {program.type}
         </div>
       </div>
 
       {/* Workouts */}
-      <div className="space-y-4 md:space-y-6">
-        {/* Mobile-only workout grid (shows on small screens only) */}
-        <div className="md:hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div className="space-y-3 md:space-y-6">
+        {/* Mobile-only workout display (shows on small screens only) */}
+        <div className="md:hidden flex flex-col gap-3">
           {program?.workouts.map((workout) => (
-            <div key={`mobile-${workout.id}`} className="bg-gray-50 rounded-lg shadow-md overflow-hidden">
-              <div className="bg-red-600 text-white p-2 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-                <div className="flex items-center flex-wrap w-full sm:w-auto">
-                  <h3 className="text-base font-medium mr-1">{workout.name}</h3>
-                  <div className="flex space-x-1 ml-auto sm:ml-2">
+            <div key={`mobile-${workout.id}`} className="bg-gray-50 rounded-lg shadow overflow-hidden">
+              <div className="bg-red-600 text-white p-2 flex justify-between items-center">
+                <div className="flex items-center">
+                  <h3 className="text-sm font-medium">{workout.name}</h3>
+                </div>
+                <div className="flex items-center space-x-2">
                     <button
                       onClick={() => {
                         const newName = prompt('Modifica nome del giorno', workout.name);
@@ -141,68 +142,67 @@ const ProgramDetail = () => {
                           handleEditWorkout(workout.id, newName);
                         }
                       }}
-                      className="text-white hover:text-gray-200"
+                      className="text-white hover:text-gray-200 p-1"
                     >
-                      <FaEdit className="w-4 h-4" />
+                      <FaEdit className="w-3 h-3" />
+                    </button>
+                    <button
+                      onClick={() => {
+                        setSelectedWorkout(workout);
+                        setExerciseModalOpen(true);
+                      }}
+                      className="text-white hover:text-gray-200 p-1"
+                    >
+                      <FaPlus className="w-3 h-3" />
                     </button>
                     <button
                       onClick={() => handleDeleteWorkout(workout.id)}
-                      className="text-white hover:text-gray-200"
+                      className="text-white hover:text-gray-200 p-1"
                     >
-                      <FaTrash className="w-4 h-4" />
+                      <FaTrash className="w-3 h-3" />
                     </button>
-                  </div>
                 </div>
-                <button
-                  onClick={() => {
-                    setSelectedWorkout(workout);
-                    setExerciseModalOpen(true);
-                  }}
-                  className="text-white bg-red-700 hover:bg-red-800 px-2 py-1 rounded text-sm flex items-center w-full sm:w-auto justify-center sm:justify-start"
-                >
-                  <FaPlus className="mr-1" /> Esercizio
-                </button>
               </div>
-              <div className="px-2 py-2">
+              <div className="p-1">
                 {workoutExercises[workout.id]?.length === 0 ? (
-                  <p className="text-gray-500 text-sm text-center py-2">Nessun esercizio</p>
+                  <p className="text-gray-500 text-xs text-center py-1">Nessun esercizio</p>
                 ) : (
-                  <div className="space-y-2 overflow-hidden">
+                  <div className="grid grid-cols-1 gap-1 overflow-hidden">
                     {workoutExercises[workout.id]?.map((exercise) => (
-                      <div key={exercise.id} className="bg-white rounded-lg shadow p-2">
-                        <div className="flex justify-between items-start">
-                          <div className="flex items-start space-x-2">
-                            <FaDumbbell className="text-red-600 mt-1 flex-shrink-0" />
-                            <div className="flex-1 min-w-0 max-w-full overflow-hidden">
-                              <h4 className="font-medium text-xs sm:text-sm truncate">{exercise.exercise_name}</h4>
-                              <div className="text-xs text-gray-600 whitespace-normal break-words">
+                      <div key={exercise.id} className="bg-white rounded shadow p-1">
+                        <div className="flex justify-between items-start gap-1">
+                          <div className="flex items-start space-x-1">
+                            <FaDumbbell className="text-red-600 mt-1 flex-shrink-0 w-3 h-3" />
+                            <div className="flex-1 min-w-0 max-w-full">
+                              <div className="font-medium text-xs truncate">{exercise.exercise_name}</div>
+                              <div className="text-[10px] text-gray-600 break-words leading-tight">
                                 Serie: {exercise.sets} | Rep: {exercise.reps}
                                 {exercise.weight && ` | ${exercise.weight}kg`}
                                 {exercise.rest_time && ` | ${exercise.rest_time}min`}
                               </div>
                               {exercise.notes && (
-                                <div className="text-xs text-gray-500 mt-1 truncate w-full overflow-hidden">
+                                <div className="text-[10px] text-gray-500 truncate leading-tight">
                                   {exercise.notes}
                                 </div>
                               )}
                             </div>
                           </div>
-                          <div className="flex space-x-1 ml-1 flex-shrink-0">
+                          <div className="flex space-x-1 flex-shrink-0">
                             <button
                               onClick={() => {
                                 setSelectedExercise(exercise);
                                 setSelectedWorkout(workout);
                                 setEditExerciseModalOpen(true);
                               }}
-                              className="text-gray-600 hover:text-gray-800"
+                              className="text-gray-600 hover:text-gray-800 p-1"
                             >
-                              <FaEdit className="w-3 h-3" />
+                              <FaEdit className="w-2 h-2" />
                             </button>
                             <button
                               onClick={() => handleDeleteExercise(workout.id, exercise.id)}
-                              className="text-red-600 hover:text-red-700"
+                              className="text-red-600 hover:text-red-700 p-1"
                             >
-                              <FaTrash className="w-3 h-3" />
+                              <FaTrash className="w-2 h-2" />
                             </button>
                           </div>
                         </div>
@@ -308,9 +308,9 @@ const ProgramDetail = () => {
       {/* Add Workout Button */}
       <button
         onClick={() => setWorkoutModalOpen(true)}
-        className="mt-6 w-full py-3 border-2 border-dashed border-red-300 text-red-600 rounded-lg hover:bg-red-50 flex items-center justify-center"
+        className="mt-4 md:mt-6 w-full py-2 md:py-3 border-2 border-dashed border-red-300 text-red-600 rounded-lg hover:bg-red-50 flex items-center justify-center text-sm md:text-base"
       >
-        <FaPlus className="mr-2" /> Aggiungi giorno
+        <FaPlus className="mr-1 md:mr-2" /> Aggiungi giorno
       </button>
 
       {/* Modals */}
