@@ -7,7 +7,7 @@ const app = express();
 
 // Configura CORS per accettare tutti i metodi HTTP
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: ['http://localhost:5173', 'https://workout-plus.vercel.app'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type']
 }));
