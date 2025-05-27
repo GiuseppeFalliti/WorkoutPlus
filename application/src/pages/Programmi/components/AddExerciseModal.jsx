@@ -46,8 +46,8 @@ const AddExerciseModal = ({ isOpen, onClose, onSubmit, workoutId }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-white rounded-lg p-6 w-full max-w-2xl">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+      <div className="bg-white rounded-lg p-6 w-full max-w-4xl max-h-[90vh] overflow-y-auto relative">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold">Aggiungi Esercizio</h2>
           <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
@@ -67,15 +67,15 @@ const AddExerciseModal = ({ isOpen, onClose, onSubmit, workoutId }) => {
           <FaSearch className="absolute left-3 top-3 text-gray-400" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* lista esercizi */}
-          <div className="bg-white rounded-lg p-4 md:p-6 w-full md:w-[800px] max-h-[90vh] overflow-y-auto relative">
+          <div className="border rounded-lg p-4 h-[400px] overflow-y-auto bg-gray-50">
             <div className="space-y-2">
               {filteredExercises.map((exercise) => (
                 <button
                   key={exercise.id}
                   onClick={() => setSelectedExercise(exercise)}
-                  className={`w-full p-3 rounded-lg text-left flex items-center space-x-3 ${
+                  className={`w-full p-3 rounded-lg text-left flex items-center space-x-3 transition-colors ${
                     selectedExercise?.id === exercise.id
                       ? 'bg-red-100 text-red-700'
                       : 'hover:bg-gray-100'
@@ -96,6 +96,12 @@ const AddExerciseModal = ({ isOpen, onClose, onSubmit, workoutId }) => {
           {/* Exercise Details Form */}
           <div>
             <form onSubmit={handleSubmit} className="space-y-4">
+              {selectedExercise && (
+                <div className="mb-6 p-4 bg-red-50 rounded-lg border border-red-100">
+                  <h3 className="font-medium text-red-700 mb-1">{selectedExercise.name}</h3>
+                  <p className="text-sm text-red-600">{selectedExercise.type}</p>
+                </div>
+              )}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Serie
