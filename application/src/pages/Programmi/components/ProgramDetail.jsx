@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL } from '../../../config';
 import { FaPlus, FaDumbbell, FaTrash, FaEdit } from 'react-icons/fa';
 import AddWorkoutModal from './AddWorkoutModal';
 import AddExerciseModal from './AddExerciseModal';
@@ -30,7 +31,7 @@ const ProgramDetail = () => {
 
   const loadProgram = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/programmi/${id}`);
+      const response = await axios.get(`${API_BASE_URL}/api/programmi/${id}`);
       setProgram(response.data);
     } catch (error) {
       console.error('Errore nel caricamento del programma:', error);
@@ -39,7 +40,7 @@ const ProgramDetail = () => {
 
   const loadWorkoutExercises = async (workoutId) => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/workouts/${workoutId}/exercises`);
+      const response = await axios.get(`${API_BASE_URL}/api/workouts/${workoutId}/exercises`);
       setWorkoutExercises(prev => ({
         ...prev,
         [workoutId]: response.data
@@ -51,7 +52,7 @@ const ProgramDetail = () => {
 
   const handleEditWorkout = async (workoutId, newName) => {
     try {
-      await axios.put(`http://localhost:3000/api/workouts/${workoutId}`, { name: newName });
+      await axios.put(`${API_BASE_URL}/api/workouts/${workoutId}`, { name: newName });
       loadProgram(); // Ricarica il programma per mostrare il nome aggiornato
     } catch (error) {
       console.error('Errore nella modifica del workout:', error);
@@ -60,7 +61,7 @@ const ProgramDetail = () => {
 
   const handleEditExercise = async (workoutId, exerciseId, exerciseData) => {
     try {
-      await axios.put(`http://localhost:3000/api/workouts/${workoutId}/exercises/${exerciseId}`, exerciseData);
+      await axios.put(`${API_BASE_URL}/api/workouts/${workoutId}/exercises/${exerciseId}`, exerciseData);
       loadWorkoutExercises(workoutId); // Ricarica gli esercizi del workout
     } catch (error) {
       console.error('Errore nella modifica dell\'esercizio:', error);
@@ -69,7 +70,7 @@ const ProgramDetail = () => {
 
   const handleAddWorkout = async (workoutData) => {
     try {
-      const response = await axios.post(`http://localhost:3000/api/programmi/${id}/workouts`, workoutData);
+      const response = await axios.post(`${API_BASE_URL}/api/programmi/${id}/workouts`, workoutData);
       loadProgram(); // Ricarica il programma per mostrare il nuovo workout
       setWorkoutModalOpen(false);
     } catch (error) {
@@ -81,7 +82,7 @@ const ProgramDetail = () => {
     if (!selectedWorkout) return;
     
     try {
-      await axios.post(`http://localhost:3000/api/workouts/${selectedWorkout.id}/exercises`, exerciseData);
+      await axios.post(`${API_BASE_URL}/api/workouts/${selectedWorkout.id}/exercises`, exerciseData);
       await loadWorkoutExercises(selectedWorkout.id);
       setExerciseModalOpen(false);
       setSelectedWorkout(null);
@@ -94,7 +95,7 @@ const ProgramDetail = () => {
     if (!window.confirm('Sei sicuro di voler eliminare questo esercizio?')) return;
 
     try {
-      await axios.delete(`http://localhost:3000/api/workout-exercises/${exerciseId}`);
+      await axios.delete(`${API_BASE_URL}/api/workout-exercises/${exerciseId}`);
       await loadWorkoutExercises(workoutId);
     } catch (error) {
       console.error('Errore nella cancellazione dell\'esercizio:', error);

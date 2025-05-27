@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { API_BASE_URL } from '../../../config';
 import React from 'react';
 import { FaUserCircle, FaTrash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -64,7 +65,7 @@ const ProgramList = ({ programs, onProgramDeleted }) => {
                   e.stopPropagation();
                   if (window.confirm('Sei sicuro di voler eliminare questo programma?')) {
                     try {
-                      await axios.delete(`http://localhost:3000/api/programmi/${program.id}`);
+                      await axios.delete(`${API_BASE_URL}/api/programmi/${program.id}`);
                       onProgramDeleted(program.id);
                     } catch (error) {
                       console.error('Error:', error);

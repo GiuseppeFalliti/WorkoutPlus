@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import axios from 'axios';
+import { API_BASE_URL } from '../../../config';
 
 const CreateProgramModal = ({ isOpen, onClose, onSubmit }) => {
   const [formData, setFormData] = useState({
@@ -13,7 +14,7 @@ const CreateProgramModal = ({ isOpen, onClose, onSubmit }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/api/programmi', {
+      const response = await axios.post(`${API_BASE_URL}/api/programmi`, {
         name: formData.name,
         type: 'Programma',
         level: formData.level,

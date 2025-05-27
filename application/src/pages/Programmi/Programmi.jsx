@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import CreateProgramModal from './components/CreateProgramModal';
+import { useState, useEffect } from 'react';
 import ProgramList from './components/ProgramList';
+import CreateProgramModal from './components/CreateProgramModal';
+import { FaPlus } from 'react-icons/fa';
+import { API_BASE_URL } from '../../config';
 
 const Programmi = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,7 +16,7 @@ const Programmi = () => {
 
   const loadPrograms = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/programmi');
+      const response = await axios.get(`${API_BASE_URL}/api/programmi`);
       if (response.data) {
         setPrograms(response.data);
       }

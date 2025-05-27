@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaTimes, FaSearch } from 'react-icons/fa';
 import axios from 'axios';
+import { API_BASE_URL } from '../../../config';
 
 const AddExerciseModal = ({ isOpen, onClose, onSubmit, workoutId }) => {
   const [exercises, setExercises] = useState([]);
@@ -20,7 +21,7 @@ const AddExerciseModal = ({ isOpen, onClose, onSubmit, workoutId }) => {
 
   const loadExercises = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/exercises');
+      const response = await axios.get(`${API_BASE_URL}/api/exercises`);
       setExercises(response.data);
     } catch (error) {
       console.error('Errore nel caricamento degli esercizi:', error);
