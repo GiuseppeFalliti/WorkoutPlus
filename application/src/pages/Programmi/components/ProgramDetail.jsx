@@ -117,109 +117,195 @@ const ProgramDetail = () => {
 
   return (
     <div className="p-4 lg:pl-72 md:pl-72 sm:pl-24 pl-16">
-      {!program ? (
-        <div className="text-center">
-          <p>Caricamento in corso...</p>
+      <div>
+        <h2 className="text-2xl font-semibold mb-6">{program.nome}</h2>
+        <div className="text-sm text-gray-600">
+          Livello: {program.level} | Tipo: {program.type}
         </div>
-      ) : (
-        <div>
-          <h2 className="text-2xl font-semibold mb-6">{program.nome}</h2>
-          <div className="text-sm text-gray-600">
-            Livello: {program.level} | Tipo: {program.type}
-          </div>
-        </div>
-      )}
-
-      {/* Workouts */}
-      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {program?.workouts.map((workout) => (
-          <div key={workout.id} className="bg-gray-50 rounded-lg shadow-md overflow-hidden">
-            <div className="bg-red-600 text-white p-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-              <div className="flex items-center space-x-2 w-full sm:w-auto">
-                <h3 className="text-lg font-medium">{workout.name}</h3>
-                <div className="flex space-x-2 ml-auto sm:ml-2">
-                  <button
-                    onClick={() => {
-                      const newName = prompt('Modifica nome del giorno', workout.name);
-                      if (newName && newName !== workout.name) {
-                        handleEditWorkout(workout.id, newName);
-                      }
-                    }}
-                    className="text-white hover:text-gray-200"
-                  >
-                    <FaEdit className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => handleDeleteWorkout(workout.id)}
-                    className="text-white hover:text-gray-200"
-                  >
-                    <FaTrash className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-              <button
-                onClick={() => {
-                  setSelectedWorkout(workout);
-                  setExerciseModalOpen(true);
-                }}
-                className="text-white bg-red-700 hover:bg-red-800 px-2 py-1 rounded text-sm flex items-center w-full sm:w-auto justify-center sm:justify-start"
-              >
-                <FaPlus className="mr-1" /> Esercizio
-              </button>
-            </div>
-            <div className="px-3 py-3">
-              {workoutExercises[workout.id]?.length === 0 ? (
-                <p className="text-gray-500 text-sm text-center py-2">Nessun esercizio</p>
-              ) : (
-                <div className="space-y-2">
-                  {workoutExercises[workout.id]?.map((exercise) => (
-                    <div key={exercise.id} className="bg-white rounded-lg shadow p-3">
-                      <div className="flex justify-between items-start">
-                        <div className="flex items-start space-x-2">
-                          <FaDumbbell className="text-red-600 mt-1 flex-shrink-0" />
-                          <div className="flex-1 min-w-0">
-                            <h4 className="font-medium text-sm truncate">{exercise.exercise_name}</h4>
-                            <div className="text-xs text-gray-600">
-                              Serie: {exercise.sets} | Rep: {exercise.reps}
-                              {exercise.weight && ` | ${exercise.weight}kg`}
-                              {exercise.rest_time && ` | ${exercise.rest_time}min`}
-                            </div>
-                            {exercise.notes && (
-                              <div className="text-xs text-gray-500 mt-1 truncate">
-                                {exercise.notes}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                        <div className="flex space-x-1 ml-1 flex-shrink-0">
-                          <button
-                            onClick={() => {
-                              setSelectedExercise(exercise);
-                              setSelectedWorkout(workout);
-                              setEditExerciseModalOpen(true);
-                            }}
-                            className="text-gray-600 hover:text-gray-800"
-                          >
-                            <FaEdit className="w-3 h-3" />
-                          </button>
-                          <button
-                            onClick={() => handleDeleteExercise(workout.id, exercise.id)}
-                            className="text-red-600 hover:text-red-700"
-                          >
-                            <FaTrash className="w-3 h-3" />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        ))}
       </div>
 
-      {/*giorno Button */}
+      {/* Workouts */}
+      <div className="space-y-6 md:space-y-6">
+        {/* Mobile-only workout grid (shows on small screens only) */}
+        <div className="md:hidden grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {program?.workouts.map((workout) => (
+            <div key={`mobile-${workout.id}`} className="bg-gray-50 rounded-lg shadow-md overflow-hidden">
+              <div className="bg-red-600 text-white p-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                <div className="flex items-center space-x-2 w-full sm:w-auto">
+                  <h3 className="text-lg font-medium">{workout.name}</h3>
+                  <div className="flex space-x-2 ml-auto sm:ml-2">
+                    <button
+                      onClick={() => {
+                        const newName = prompt('Modifica nome del giorno', workout.name);
+                        if (newName && newName !== workout.name) {
+                          handleEditWorkout(workout.id, newName);
+                        }
+                      }}
+                      className="text-white hover:text-gray-200"
+                    >
+                      <FaEdit className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => handleDeleteWorkout(workout.id)}
+                      className="text-white hover:text-gray-200"
+                    >
+                      <FaTrash className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+                <button
+                  onClick={() => {
+                    setSelectedWorkout(workout);
+                    setExerciseModalOpen(true);
+                  }}
+                  className="text-white bg-red-700 hover:bg-red-800 px-2 py-1 rounded text-sm flex items-center w-full sm:w-auto justify-center sm:justify-start"
+                >
+                  <FaPlus className="mr-1" /> Esercizio
+                </button>
+              </div>
+              <div className="px-3 py-3">
+                {workoutExercises[workout.id]?.length === 0 ? (
+                  <p className="text-gray-500 text-sm text-center py-2">Nessun esercizio</p>
+                ) : (
+                  <div className="space-y-2">
+                    {workoutExercises[workout.id]?.map((exercise) => (
+                      <div key={exercise.id} className="bg-white rounded-lg shadow p-3">
+                        <div className="flex justify-between items-start">
+                          <div className="flex items-start space-x-2">
+                            <FaDumbbell className="text-red-600 mt-1 flex-shrink-0" />
+                            <div className="flex-1 min-w-0">
+                              <h4 className="font-medium text-sm truncate">{exercise.exercise_name}</h4>
+                              <div className="text-xs text-gray-600">
+                                Serie: {exercise.sets} | Rep: {exercise.reps}
+                                {exercise.weight && ` | ${exercise.weight}kg`}
+                                {exercise.rest_time && ` | ${exercise.rest_time}min`}
+                              </div>
+                              {exercise.notes && (
+                                <div className="text-xs text-gray-500 mt-1 truncate">
+                                  {exercise.notes}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          <div className="flex space-x-1 ml-1 flex-shrink-0">
+                            <button
+                              onClick={() => {
+                                setSelectedExercise(exercise);
+                                setSelectedWorkout(workout);
+                                setEditExerciseModalOpen(true);
+                              }}
+                              className="text-gray-600 hover:text-gray-800"
+                            >
+                              <FaEdit className="w-3 h-3" />
+                            </button>
+                            <button
+                              onClick={() => handleDeleteExercise(workout.id, exercise.id)}
+                              className="text-red-600 hover:text-red-700"
+                            >
+                              <FaTrash className="w-3 h-3" />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        {/* Desktop layout - original style (hidden on small screens) */}
+        <div className="hidden md:block">
+          {program?.workouts.map((workout) => (
+            <div key={workout.id} className="mb-8 bg-gray-50 rounded-lg shadow-md overflow-hidden">
+              <div className="bg-red-600 text-white p-4 flex justify-between items-center">
+                <div className="flex items-center space-x-2">
+                  <h3 className="text-xl font-medium">{workout.name}</h3>
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => {
+                        const newName = prompt('Modifica nome del giorno', workout.name);
+                        if (newName && newName !== workout.name) {
+                          handleEditWorkout(workout.id, newName);
+                        }
+                      }}
+                      className="text-white hover:text-gray-200"
+                    >
+                      <FaEdit className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => handleDeleteWorkout(workout.id)}
+                      className="text-white hover:text-gray-200"
+                    >
+                      <FaTrash className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+                <button
+                  onClick={() => {
+                    setSelectedWorkout(workout);
+                    setExerciseModalOpen(true);
+                  }}
+                  className="text-white bg-red-700 hover:bg-red-800 px-3 py-1 rounded flex items-center"
+                >
+                  <FaPlus className="mr-2" /> Aggiungi Esercizio
+                </button>
+              </div>
+              <div className="container mx-auto px-4 py-4 md:py-6">
+                <div className="space-y-4">
+                  {workoutExercises[workout.id]?.length === 0 ? (
+                    <p className="text-gray-500 text-center py-4">Nessun esercizio in questo workout</p>
+                  ) : (
+                    workoutExercises[workout.id]?.map((exercise) => (
+                      <div key={exercise.id} className="bg-white rounded-lg shadow-lg p-4 md:p-6">
+                        <div className="flex justify-between items-start">
+                          <div className="flex items-center space-x-3">
+                            <FaDumbbell className="text-red-600" />
+                            <div>
+                              <h4 className="font-medium">{exercise.exercise_name}</h4>
+                              <div className="text-sm text-gray-600">
+                                Serie: {exercise.sets} | Ripetizioni: {exercise.reps}
+                                {exercise.weight && ` | Peso: ${exercise.weight}kg`}
+                                {exercise.rest_time && ` | Recupero: ${exercise.rest_time}min`}
+                              </div>
+                              {exercise.notes && (
+                                <div className="text-sm text-gray-500 mt-1">
+                                  Note: {exercise.notes}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          <div className="flex space-x-2">
+                            <button
+                              onClick={() => {
+                                setSelectedExercise(exercise);
+                                setSelectedWorkout(workout);
+                                setEditExerciseModalOpen(true);
+                              }}
+                              className="text-gray-600 hover:text-gray-800"
+                            >
+                              <FaEdit className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={() => handleDeleteExercise(workout.id, exercise.id)}
+                              className="text-red-600 hover:text-red-700"
+                            >
+                              <FaTrash className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Add Workout Button */}
       <button
         onClick={() => setWorkoutModalOpen(true)}
         className="mt-6 w-full py-3 border-2 border-dashed border-red-300 text-red-600 rounded-lg hover:bg-red-50 flex items-center justify-center"
