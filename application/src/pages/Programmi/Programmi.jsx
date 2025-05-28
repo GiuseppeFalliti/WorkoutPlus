@@ -31,7 +31,7 @@ const Programmi = () => {
   };
 
   return (
-    <div className="md:p-6">
+    <div className="md:p-6 pl-8">
       {/* Header Section */}
       <div className="flex justify-between items-center mb-8">
         <div>
