@@ -38,7 +38,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
       {/* Bottone hamburger per mobile */}
       {isMobile ? (isOpen ?<button 
           onClick={() => setIsOpen(!isOpen)}
-          className="relative top-3 left-15 text-white"
+          className="relative top-2 left-2 text-white"
         >
           <FaBars className="text-xl" />
         </button> : <button 
