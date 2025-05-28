@@ -5,6 +5,7 @@ import Home from './pages/Home/Home';
 import Programmi from './pages/Programmi/Programmi';
 import ProgramDetail from './pages/Programmi/components/ProgramDetail';
 import { useState } from 'react'; // Import aggiunto
+import { useEffect } from 'react'; // Import aggiunto
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
