@@ -50,7 +50,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
       {isMobile && (
         <button 
           onClick={() => setIsOpen(!isOpen)}
-          className="absolute top-2 left-2 text-white"
+          className="relative top-2 left-2 text-white"
         >
           <FaBars className="text-xl" />
         </button>
