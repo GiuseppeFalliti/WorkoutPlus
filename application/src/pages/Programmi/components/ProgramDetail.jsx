@@ -133,7 +133,7 @@ const ProgramDetail = () => {
   if (!program) return <div>Caricamento...</div>;
 
   return (
-    <div className=" md:p-2 md:pl-5 p-2">
+    <div className=" md:p-2 md:pl-5 pr-2">
       {/* Intestazione del programma */}
       <div>
         <h2 className="text-xl md:text-2xl font-semibold mb-2 md:mb-6">{program.nome}</h2>
