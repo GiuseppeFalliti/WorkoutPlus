@@ -44,7 +44,7 @@ const ProgramList = ({ programs, onProgramDeleted }) => {
               className="cursor-pointer"
               onClick={() => navigate(`/programmi/${program.id}`)}
             >
-              <span className="px-2 py-1 bg-red-100 text-red-800 rounded-full text-sm">
+              <span className="px-2 py-1 bg-red-800 text-red-800 rounded-full text-sm">
                 {program.type}
               </span>
             </div>
