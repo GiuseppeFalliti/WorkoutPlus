@@ -34,16 +34,19 @@ const SideBar = ({ isOpen, setIsOpen }) => {
     <div className={`fixed top-0 left-0 h-screen bg-red-700 text-white transition-all duration-300 z-10
       ${isMobile ? 'p-2' : 'p-4'} 
       ${isOpen ? (isMobile ? 'w-40' : 'w-64') : (isMobile ? 'w-14' : 'w-20')}`}>
-      
+
       {/* Bottone hamburger per mobile */}
-      {isMobile && (
-        <button 
+      {isMobile ? (isOpen ?<button 
           onClick={() => setIsOpen(!isOpen)}
-          className="relative top-3 right-3 text-white"
+          className="absolute top-3 left-15 text-white"
         >
           <FaBars className="text-xl" />
-        </button>
-      )}
+        </button> : <button 
+          onClick={() => setIsOpen(!isOpen)}
+          className="relative top-3 left-5 text-white"
+        >
+          <FaBars className="text-xl" />
+        </button> ) : null} 
 
       <div className={`${isMobile ? 'mb-4' : 'mb-8'} text-center`}>
         <h1 className={`${isMobile ? 'text-lg' : 'text-2xl'} font-bold ${isMobile ? 'mb-1' : 'mb-2'} ${!isOpen && isMobile && 'hidden'}`}>
