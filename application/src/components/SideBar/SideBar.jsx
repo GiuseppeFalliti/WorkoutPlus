@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react'; // Rimossa useState locale
+import React, { useState, useEffect } from 'react'; // Aggiunto useState qui
 import { Link } from 'react-router-dom';
-import { FaHome, FaDumbbell, FaListAlt, FaUtensils, FaCog, FaBars } from 'react-icons/fa';
+import { FaHome, FaListAlt, FaCog, FaBars } from 'react-icons/fa'; // Aggiunto FaBars
 
-// Riceve isOpen e setIsOpen come props
 const SideBar = ({ isOpen, setIsOpen }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
@@ -17,7 +16,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
       
-      // Auto-close sidebar on mobile
+      // Chiudi sidebar automaticamente su mobile
       if (mobile) {
         setIsOpen(false);
       } else {
@@ -26,17 +25,17 @@ const SideBar = ({ isOpen, setIsOpen }) => {
     };
 
     window.addEventListener('resize', handleResize);
-    handleResize(); // Chiamata iniziale
+    handleResize();
 
     return () => window.removeEventListener('resize', handleResize);
-  }, [setIsOpen]); // Aggiunto setIsOpen come dipendenza
+  }, [setIsOpen]);
 
   return (
     <div className={`fixed top-0 left-0 h-screen bg-red-700 text-white transition-all duration-300 z-10
       ${isMobile ? 'p-2' : 'p-4'} 
       ${isOpen ? (isMobile ? 'w-40' : 'w-64') : (isMobile ? 'w-14' : 'w-20')}`}>
       
-      {/* Hamburger menu per mobile */}
+      {/* Bottone hamburger per mobile */}
       {isMobile && (
         <button 
           onClick={() => setIsOpen(!isOpen)}
@@ -59,7 +58,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
             to={item.path}
             key={index}
             className={`flex items-center ${isMobile ? 'space-x-2 p-2 text-sm' : 'space-x-4 p-3'} rounded-lg hover:bg-white/10 transition-colors duration-200`}
-            onClick={() => isMobile && setIsOpen(false)} // Chiudi sidebar al click su mobile
+            onClick={() => isMobile && setIsOpen(false)}
           >
             <span className={`${isMobile ? 'min-w-[20px]' : 'min-w-[24px]'}`}>{item.icon}</span>
             <span className={`whitespace-nowrap ${!isOpen && 'hidden'}`}>{item.title}</span>
