@@ -31,7 +31,7 @@ function App() {
   // Calcola la classe del margine in base allo stato
   const getMarginClass = () => {
     if (isMobile) {
-      return isSidebarOpen ? 'ml-44' : 'ml-0';
+      return isSidebarOpen ? 'ml-44' : 'ml-16';
     } else {
       return isSidebarOpen ? 'ml-64' : 'ml-20';
     }
