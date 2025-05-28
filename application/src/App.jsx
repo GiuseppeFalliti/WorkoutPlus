@@ -18,7 +18,7 @@ function App() {
         />
         <main className={`flex-1 bg-gray-50 min-h-screen transition-all duration-300 ${
           isSidebarOpen 
-            ? 'ml-64' // 256px quando aperto
+            ? 'ml-44' // 256px quando aperto
             : 'ml-20' // 80px quando chiuso
         }`}>
           <Routes>
