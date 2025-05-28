@@ -39,7 +39,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
       {isMobile && (
         <button 
           onClick={() => setIsOpen(!isOpen)}
-          className="absolute top-3 right-3 text-white"
+          className="relative top-3 right-3 text-white"
         >
           <FaBars className="text-xl" />
         </button>
@@ -49,7 +49,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
         <h1 className={`${isMobile ? 'text-lg' : 'text-2xl'} font-bold ${isMobile ? 'mb-1' : 'mb-2'} ${!isOpen && isMobile && 'hidden'}`}>
           WorkoutPlus
         </h1>
-        <hr className="w-full mx-auto my-2 border-white" />
+        <hr className="absolute bottomo-1 w-full mx-auto my-2 border-white" />
       </div>
       
       <nav className={`flex flex-col ${isMobile ? 'space-y-1' : 'space-y-2'}`}>
