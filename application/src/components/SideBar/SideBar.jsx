@@ -35,7 +35,8 @@ const SideBar = ({ isOpen, setIsOpen }) => {
       ${isMobile ? 'p-2' : 'p-4'} 
       ${isOpen ? (isMobile ? 'w-40' : 'w-64') : (isMobile ? 'w-14' : 'w-20')}`}>
 
-      {/* Bottone hamburger per mobile */}{/*{isMobile ? (isOpen ?<button 
+      {/* Bottone hamburger per mobile */}
+      {isMobile ? (isOpen ?<button 
           onClick={() => setIsOpen(!isOpen)}
           className="relative top-3 left-15 text-white"
         >
@@ -46,15 +47,6 @@ const SideBar = ({ isOpen, setIsOpen }) => {
         >
           <FaBars className="text-xl" />
         </button> ) : null} 
-*/ }
-      {isMobile && (
-        <button 
-          onClick={() => setIsOpen(!isOpen)}
-          className="relative top-2 left-2 text-white"
-        >
-          <FaBars className="text-xl" />
-        </button>
-      )}
       
       <div className={`${isMobile ? 'mb-4' : 'mb-8'} text-center`}>
         
