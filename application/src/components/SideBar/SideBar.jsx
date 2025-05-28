@@ -35,8 +35,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
       ${isMobile ? 'p-2' : 'p-4'} 
       ${isOpen ? (isMobile ? 'w-40' : 'w-64') : (isMobile ? 'w-14' : 'w-20')}`}>
 
-      {/* Bottone hamburger per mobile */}
-      {isMobile ? (isOpen ?<button 
+      {/* Bottone hamburger per mobile */}{/*{isMobile ? (isOpen ?<button 
           onClick={() => setIsOpen(!isOpen)}
           className="relative top-3 left-15 text-white"
         >
@@ -47,11 +46,22 @@ const SideBar = ({ isOpen, setIsOpen }) => {
         >
           <FaBars className="text-xl" />
         </button> ) : null} 
-
+*/ }
+      {isMobile && (
+        <button 
+          onClick={() => setIsOpen(!isOpen)}
+          className="absolute top-2 left-2 text-white"
+        >
+          <FaBars className="text-xl" />
+        </button>
+      )}
+      
       <div className={`${isMobile ? 'mb-4' : 'mb-8'} text-center`}>
-        <h1 className={`${isMobile ? 'text-lg' : 'text-2xl'} font-bold ${isMobile ? 'mb-1' : 'mb-2'} ${!isOpen && isMobile && 'hidden'}`}>
+        
+        {isMobile ? null :<h1 className={`${isMobile ? 'text-lg' : 'text-2xl'} font-bold ${isMobile ? 'mb-1' : 'mb-2'} ${!isOpen && isMobile && 'hidden'}`}>
           WorkoutPlus
-        </h1>
+        </h1> }
+        
         <hr className="absolute bottomo-1 w-full mx-auto my-2 border-white" />
       </div>
       
